@@ -1,0 +1,30 @@
+{
+  "name": "pokedex-tracker-api",
+  "version": "0.0.1",
+  "description": "API for pokedextracker.com",
+  "main": "src/index.js",
+  "scripts": {
+    "lint": "eslint .",
+    "release:major": "changelog -M && git add CHANGELOG.md && git commit -m 'updated CHANGELOG.md' && npm version major && git push origin && git push origin --tags",
+    "release:minor": "changelog -m && git add CHANGELOG.md && git commit -m 'updated CHANGELOG.md' && npm version minor && git push origin && git push origin --tags",
+    "release:patch": "changelog -p && git add CHANGELOG.md && git commit -m 'updated CHANGELOG.md' && npm version patch && git push origin && git push origin --tags",
+    "start": "nodemode --ignore test/",
+    "test": "NODE_ENV=test istanbul cover _mocha -- test --require test/setup.js --recursive --timeout 30000"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/robinjoseph08/api.pokedextracker.com.git"
+  },
+  "author": "Robin Joseph <robin.joseph@me.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/robinjoseph08/api.pokedextracker.com/issues"
+  },
+  "homepage": "https://github.com/robinjoseph08/api.pokedextracker.com#readme",
+  "devDependencies": {
+    "eslint": "^2.2.0",
+    "eslint-config-lob": "^2.0.0",
+    "generate-changelog": "^1.0.1",
+    "nodemon": "^1.9.1"
+  }
+}
