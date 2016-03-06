@@ -3,9 +3,9 @@
 const Chai  = require('chai');
 const Rosie = require('rosie');
 
-const API = require('../src/server');
+const Server = require('../src/server');
 
-API.register([
+Server.register([
   require('inject-then')
 ], (err) => {
   if (err) {
