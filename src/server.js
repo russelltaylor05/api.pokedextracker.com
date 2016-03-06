@@ -20,7 +20,9 @@ const server = new Hapi.Server({
 server.connection({ port: Config.PORT });
 
 server.register([
-  require('hapi-bookshelf-serializer')
+  require('hapi-bookshelf-serializer'),
+  require('./plugins/services/errors'),
+  require('./plugins/features/users')
 ], (err) => {
   /* istanbul ignore if */
   if (err) {
