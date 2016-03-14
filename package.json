@@ -5,6 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "coveralls": "cat ./coverage/lcov.info | coveralls",
+    "deploy": "ssh ubuntu@api.pokedextracker.com ./deployments/api.pokedextracker.com.sh",
     "lint": "eslint .",
     "migrate": "knex migrate:latest --knexfile db/index.js",
     "migrate:make": "knex migrate:make --knexfile db/index.js",
