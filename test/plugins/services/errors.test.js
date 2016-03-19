@@ -1,7 +1,9 @@
 'use strict';
 
-const Hapi = require('hapi');
-const Joi  = require('joi');
+const Hapi  = require('hapi');
+const Joi   = require('joi');
+const Sinon = require('sinon');
+const Util  = require('util');
 
 describe('errors service plugin', () => {
 
@@ -72,12 +74,17 @@ describe('errors service plugin', () => {
   });
 
   it('does not alter the 500 message', () => {
+    Sinon.stub(Util, 'log');
+
     return server.injectThen({
       method: 'POST',
       url: '/error'
     })
     .then((res) => {
       expect(res.result.error.message).to.eql('An internal server error occurred');
+    })
+    .finally(() => {
+      Util.log.restore();
     });
   });
 

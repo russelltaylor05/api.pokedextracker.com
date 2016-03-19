@@ -7,6 +7,7 @@ module.exports = {
   DB_PASSWORD: '',
   DB_USER: 'pokedex_tracker_user',
   DRAIN_TIMEOUT: 5000,
+  JWT_SECRET: 's3cret',
   PORT: 8647,
   SALT_ROUNDS: 10
 };

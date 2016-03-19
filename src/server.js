@@ -1,9 +1,12 @@
 'use strict';
 
-const Hapi = require('hapi');
-const Util = require('util');
+const Bluebird = require('bluebird');
+const Hapi     = require('hapi');
+const Util     = require('util');
 
 const Config = require('../config');
+
+Bluebird.longStackTraces();
 
 const server = new Hapi.Server({
   connections: {
@@ -23,6 +26,7 @@ server.register([
   require('hapi-bookshelf-serializer'),
   require('./plugins/services/errors'),
   require('./plugins/features/pokemon'),
+  require('./plugins/features/sessions'),
   require('./plugins/features/users')
 ], (err) => {
   /* istanbul ignore if */

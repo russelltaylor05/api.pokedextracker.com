@@ -1,7 +1,7 @@
 'use strict';
 
 const Controller          = require('./controller');
-const UserCreateValidator = require('../../../validators/users/create');
+const UserCreateValidator = require('../../../validators/user/create');
 
 exports.register = (server, options, next) => {
 
