@@ -2,7 +2,7 @@
 
 const Joi = require('joi');
 
-const UserCreateValidator = require('../../../src/validators/users/create');
+const UserCreateValidator = require('../../../src/validators/user/create');
 
 describe('user create validator', () => {
 

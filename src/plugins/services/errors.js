@@ -15,7 +15,7 @@ exports.register = function (server, options, next) {
 
       /* istanbul ignore if */
       if (err.output.statusCode === 500) {
-        Util.log(err.cause);
+        Util.log(err.stack);
       }
 
       if (err.output.statusCode === 400) {
