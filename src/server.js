@@ -26,6 +26,7 @@ server.register([
   require('hapi-bookshelf-serializer'),
   require('./plugins/services/errors'),
   require('./plugins/services/auth'),
+  require('./plugins/features/captures'),
   require('./plugins/features/pokemon'),
   require('./plugins/features/sessions'),
   require('./plugins/features/users')
