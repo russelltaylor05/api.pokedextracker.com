@@ -22,11 +22,11 @@ describe('user create validator', () => {
       expect(result.error).to.match(/"username" must only contain alpha-numeric and underscore characters/);
     });
 
-    it('limits to 255 characters', () => {
-      const data = { username: 'a'.repeat(256), password: 'testtest' };
+    it('limits to 20 characters', () => {
+      const data = { username: 'a'.repeat(21), password: 'testtest' };
       const result = Joi.validate(data, UserCreateValidator);
 
-      expect(result.error).to.match(/"username" length must be less than or equal to 255 characters long/);
+      expect(result.error).to.match(/"username" length must be less than or equal to 20 characters long/);
     });
 
     it('converts to lowercase', () => {
