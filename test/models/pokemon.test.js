@@ -2,21 +2,60 @@
 
 const Pokemon = require('../../src/models/pokemon');
 
-const pokemon        = Factory.build('pokemon');
-const twoTypePokemon = Factory.build('pokemon', { type2: 'water' });
+const pokemon = Factory.build('pokemon');
 
 describe('pokemon model', () => {
 
   describe('virtuals', () => {
 
+    describe('bulbapedia_url', () => {
+
+      it('URL-encodes the name in the Bulbapedia link', () => {
+        expect(Pokemon.forge({ name: 'Pokémon' }).get('bulbapedia_url')).to.eql('http://bulbapedia.bulbagarden.net/wiki/Pok%C3%A9mon_(Pok%C3%A9mon)');
+      });
+
+    });
+
     describe('types', () => {
 
       it('returns an array of types', () => {
-        expect(Pokemon.forge(twoTypePokemon).get('types')).to.eql([twoTypePokemon.type1, twoTypePokemon.type2]);
+        expect(Pokemon.forge({ type1: 'fire', type2: 'water' }).get('types')).to.eql(['fire', 'water']);
       });
 
       it('doesn\'t include the second type if it does exist', () => {
-        expect(Pokemon.forge(pokemon).get('types')).to.eql([pokemon.type1]);
+        expect(Pokemon.forge({ type1: 'fire' }).get('types')).to.eql(['fire']);
+      });
+
+    });
+
+    describe('x_locations', () => {
+
+      it('splits by commas', () => {
+        expect(Pokemon.forge({ x_location: 'Route 1, Route 2' }).get('x_locations')).to.eql(['Route 1', 'Route 2']);
+      });
+
+    });
+
+    describe('y_locations', () => {
+
+      it('splits by commas', () => {
+        expect(Pokemon.forge({ y_location: 'Route 1, Route 2' }).get('y_locations')).to.eql(['Route 1', 'Route 2']);
+      });
+
+    });
+
+    describe('or_locations', () => {
+
+      it('splits by commas', () => {
+        expect(Pokemon.forge({ or_location: 'Route 1, Route 2' }).get('or_locations')).to.eql(['Route 1', 'Route 2']);
+      });
+
+    });
+
+    describe('as_locations', () => {
+
+      it('splits by commas', () => {
+        expect(Pokemon.forge({ as_location: 'Route 1, Route 2' }).get('as_locations')).to.eql(['Route 1', 'Route 2']);
       });
 
     });
@@ -38,13 +77,12 @@ describe('pokemon model', () => {
         'coastal_kalos_id',
         'mountain_kalos_id',
         'regionless',
-        'types',
         'icon_url',
-        'avatar_url',
-        'x_location',
-        'y_location',
-        'or_location',
-        'as_location'
+        'bulbapedia_url',
+        'x_locations',
+        'y_locations',
+        'or_locations',
+        'as_locations'
       ]);
     });
 
