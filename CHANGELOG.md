@@ -1,3 +1,16 @@
+## 1.0.0 (2016-3-20)
+
+##### New Features
+
+* **captures:** add list, create, delete endpoints ([5137a2ed](https://github.com/robinjoseph08/api.pokedextracker.com/commit/5137a2edbdd401b426e7dba17597fff7ea994bd5))
+* **auth:** add auth service ([890acb1e](https://github.com/robinjoseph08/api.pokedextracker.com/commit/890acb1e3a7060ca3781178f37a0e2de09220907))
+* **sessions:** add create endpoint ([14fab29c](https://github.com/robinjoseph08/api.pokedextracker.com/commit/14fab29c64fffdfb25fef977ca86a3cd84d37a6c))
+
+##### Bug Fixes
+
+* **users:** limit usernames to only 20 chars ([c2429747](https://github.com/robinjoseph08/api.pokedextracker.com/commit/c2429747c723e818fd1fb6d50cf67e7a57d95ae1))
+* **pokemon:** adjust the response to be more relevant ([23f28914](https://github.com/robinjoseph08/api.pokedextracker.com/commit/23f2891405f30d1d8caa11bc84380d041576d118))
+
 ### 0.1.0 (2016-3-13)
 
 ##### Chores
