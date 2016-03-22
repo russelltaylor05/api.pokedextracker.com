@@ -5,6 +5,7 @@ const Bcrypt   = Bluebird.promisifyAll(require('bcrypt'));
 
 const Config = require('../../../../config');
 const Errors = require('../../../libraries/errors');
+const JWT    = require('../../../libraries/jwt');
 const User   = require('../../../models/user');
 
 exports.list = function () {
@@ -32,5 +33,5 @@ exports.create = function (payload) {
 
     return new User(payload).save();
   })
-  .then((user) => new User({ id: user.id }).fetch());
+  .then((user) => JWT.sign(user));
 };

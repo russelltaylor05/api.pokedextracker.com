@@ -55,8 +55,8 @@ describe('user controller', () => {
 
     it('saves a user with a hashed password', () => {
       return Controller.create({ username: 'test', password: 'test' })
-      .then((user) => {
-        expect(user.get('password')).to.have.length(60);
+      .then((session) => {
+        expect(session.token).to.be.a('string');
       });
     });
 
