@@ -1,3 +1,9 @@
+#### 1.0.1 (2016-3-21)
+
+##### Bug Fixes
+
+* **users:** return JWT on user creation ([b29b1f3e](https://github.com/robinjoseph08/api.pokedextracker.com/commit/b29b1f3e3b6eb7c4e3393ccca0eed1db3335c3c2))
+
 ## 1.0.0 (2016-3-20)
 
 ##### New Features
