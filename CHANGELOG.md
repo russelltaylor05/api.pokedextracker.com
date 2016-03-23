@@ -1,3 +1,9 @@
+#### 1.0.2 (2016-3-22)
+
+##### Bug Fixes
+
+* **users:** don't lowercase usernames passed in ([fcaee9e6](https://github.com/robinjoseph08/api.pokedextracker.com/commit/fcaee9e63ef651dbd1f9df6730287f99222919cf))
+
 #### 1.0.1 (2016-3-21)
 
 ##### Bug Fixes
