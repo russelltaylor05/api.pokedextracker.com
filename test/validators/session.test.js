@@ -22,14 +22,6 @@ describe('session validator', () => {
       expect(result.error).to.match(/"username" must only contain alpha-numeric and underscore characters/);
     });
 
-    it('converts to lowercase', () => {
-      const username = 'TESTING';
-      const data = { username, password: 'testtest' };
-      const result = Joi.validate(data, SessionValidator);
-
-      expect(result.value.username).to.eql(username.toLowerCase());
-    });
-
     it('trims whitespace', () => {
       const username = '  testing ';
       const data = { username, password: 'testtest' };

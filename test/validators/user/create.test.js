@@ -29,14 +29,6 @@ describe('user create validator', () => {
       expect(result.error).to.match(/"username" length must be less than or equal to 20 characters long/);
     });
 
-    it('converts to lowercase', () => {
-      const username = 'TESTING';
-      const data = { username, password: 'testtest' };
-      const result = Joi.validate(data, UserCreateValidator);
-
-      expect(result.value.username).to.eql(username.toLowerCase());
-    });
-
     it('trims whitespace', () => {
       const username = '  testing ';
       const data = { username, password: 'testtest' };
