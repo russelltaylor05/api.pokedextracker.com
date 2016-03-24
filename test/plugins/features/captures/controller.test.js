@@ -33,16 +33,12 @@ describe('capture controller', () => {
       .map((capture) => capture.serialize())
       .then((captures) => {
         expect(captures).to.have.length(2);
-        expect(captures[0]).to.eql({
-          pokemon_id: firstPokemon.national_id,
-          user_id: user.id,
-          captured: true
-        });
-        expect(captures[1]).to.eql({
-          pokemon_id: secondPokemon.national_id,
-          user_id: user.id,
-          captured: false
-        });
+        expect(captures[0].pokemon.national_id).to.eql(firstPokemon.national_id);
+        expect(captures[0].user_id).to.eql(user.id);
+        expect(captures[0].captured).to.be.true;
+        expect(captures[1].pokemon.national_id).to.eql(secondPokemon.national_id);
+        expect(captures[1].user_id).to.eql(user.id);
+        expect(captures[1].captured).to.be.false;
       });
     });
 

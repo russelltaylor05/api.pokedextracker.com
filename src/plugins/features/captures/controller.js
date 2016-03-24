@@ -20,7 +20,8 @@ exports.list = function (query) {
   .then((captures) => {
     return new Pokemon().count().then((count) => new Array(parseInt(count)))
     .map((_, i) => captures[i + 1] || Capture.forge({ user_id: query.user, pokemon_id: i + 1, captured: false }));
-  });
+  })
+  .map((capture) => capture.load(Capture.RELATED));
 };
 
 exports.create = function (payload, auth) {
@@ -32,7 +33,7 @@ exports.create = function (payload, auth) {
   .catch(Errors.DuplicateKey, () => {
     throw new Errors.AlreadyExists('capture');
   })
-  .then(() => new Capture({ pokemon_id: payload.pokemon, user_id: auth.id }).fetch());
+  .then(() => new Capture({ pokemon_id: payload.pokemon, user_id: auth.id }).fetch({ withRelated: Capture.RELATED }));
 };
 
 exports.delete = function (payload, auth) {
