@@ -1,3 +1,9 @@
+### 1.1.0 (2016-3-24)
+
+##### New Features
+
+* **captures:** nest the pokemon object in the response ([3ba86128](https://github.com/robinjoseph08/api.pokedextracker.com/commit/3ba86128f146862e202421a22f25a4375e6d8d2d))
+
 #### 1.0.2 (2016-3-22)
 
 ##### Bug Fixes
