@@ -10,5 +10,6 @@ module.exports = {
     password: Config.DB_PASSWORD,
     port: Config.DB_PORT,
     user: Config.DB_USER
-  }
+  },
+  debug: Config.DB_DEBUG
 };

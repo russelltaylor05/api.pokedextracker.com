@@ -1,6 +1,7 @@
 'use strict';
 
 module.exports = {
+  DB_DEBUG: process.env.DB_DEBUG,
   DB_NAME: 'pokedex_tracker',
   DB_HOST: 'localhost',
   DB_PORT: 5432,
