@@ -11,17 +11,29 @@ exports.list = function (query) {
   .catch(User.NotFoundError, () => {
     throw new Errors.NotFound('user');
   })
-  .then(() => new Capture().where('user_id', query.user).fetchAll())
+  .then(() => new Capture().where('user_id', query.user).fetchAll({ withRelated: Capture.RELATED }))
   .get('models')
   .reduce((captures, capture) => {
     captures[capture.get('pokemon_id')] = capture;
     return captures;
   }, {})
   .then((captures) => {
-    return new Pokemon().count().then((count) => new Array(parseInt(count)))
-    .map((_, i) => captures[i + 1] || Capture.forge({ user_id: query.user, pokemon_id: i + 1, captured: false }));
-  })
-  .map((capture) => capture.load(Capture.RELATED));
+    let pokemon;
+
+    return new Pokemon().query((qb) => qb.orderBy('national_id')).fetchAll()
+    .get('models')
+    .tap((p) => pokemon = p)
+    .then((p) => new Array(p.length))
+    .map((_, i) => {
+      if (captures[i + 1]) {
+        return captures[i + 1];
+      }
+
+      const capture = Capture.forge({ user_id: query.user, pokemon_id: i + 1, captured: false });
+      capture.relations.pokemon = pokemon[i];
+      return capture;
+    });
+  });
 };
 
 exports.create = function (payload, auth) {
