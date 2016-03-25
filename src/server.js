@@ -14,7 +14,6 @@ const server = new Hapi.Server({
       stripTrailingSlash: true
     },
     routes: {
-      json: { space: 2 },
       cors: { credentials: true }
     }
   }
