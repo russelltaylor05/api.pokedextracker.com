@@ -1,3 +1,9 @@
+#### 1.1.1 (2016-3-25)
+
+##### Bug Fixes
+
+* **captures:** speed up the list endpoint ([3eceaa99](https://github.com/robinjoseph08/api.pokedextracker.com/commit/3eceaa99ef9a94f9383914250e4fb2445d198a6e))
+
 ### 1.1.0 (2016-3-24)
 
 ##### New Features
