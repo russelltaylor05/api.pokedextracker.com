@@ -1,3 +1,9 @@
+### 1.2.0 (2016-3-30)
+
+##### New Features
+
+* **monitoring:** add new relic ([2bea2442](https://github.com/robinjoseph08/api.pokedextracker.com/commit/2bea24429b96a859cade910b34fcd4676aa3fdaf))
+
 #### 1.1.1 (2016-3-25)
 
 ##### Bug Fixes
