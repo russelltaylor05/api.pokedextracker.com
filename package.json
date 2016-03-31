@@ -27,6 +27,7 @@
     "joi": "^8.0.4",
     "jsonwebtoken": "^5.7.0",
     "knex": "^0.10.0",
+    "newrelic": "^1.26.0",
     "pg": "^4.5.1"
   },
   "devDependencies": {
