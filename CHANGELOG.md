@@ -1,3 +1,9 @@
+#### 1.2.1 (2016-3-31)
+
+##### Bug Fixes
+
+* **new-relic:** make sure require('newrelic') is first ([f1e10e14](https://github.com/robinjoseph08/api.pokedextracker.com/commit/f1e10e14ed912d52f1c709979f653ce5d0340007))
+
 ### 1.2.0 (2016-3-30)
 
 ##### New Features
