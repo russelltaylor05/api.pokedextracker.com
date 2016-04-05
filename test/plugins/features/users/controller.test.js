@@ -4,29 +4,9 @@ const Controller = require('../../../../src/plugins/features/users/controller');
 const Errors     = require('../../../../src/libraries/errors');
 const Knex       = require('../../../../src/libraries/knex');
 
-const firstUser  = Factory.build('user');
-const secondUser = Factory.build('user');
+const firstUser = Factory.build('user');
 
 describe('user controller', () => {
-
-  describe('list', () => {
-
-    beforeEach(() => {
-      return Knex('users').insert([firstUser, secondUser]);
-    });
-
-    it('returns a collection of users', () => {
-      return Controller.list()
-      .get('models')
-      .map((user) => user.id)
-      .then((users) => {
-        expect(users).to.have.length(2);
-        expect(users).to.contain(firstUser.id);
-        expect(users).to.contain(secondUser.id);
-      });
-    });
-
-  });
 
   describe('retrieve', () => {
 

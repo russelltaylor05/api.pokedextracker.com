@@ -7,12 +7,6 @@ exports.register = (server, options, next) => {
 
   server.route([{
     method: 'GET',
-    path: '/users',
-    config: {
-      handler: (request, reply) => reply(Controller.list())
-    }
-  }, {
-    method: 'GET',
     path: '/users/{id}',
     config: {
       handler: (request, reply) => reply(Controller.retrieve(request.params.id))
