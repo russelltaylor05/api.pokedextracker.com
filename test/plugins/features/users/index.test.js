@@ -3,28 +3,9 @@
 const Knex   = require('../../../../src/libraries/knex');
 const Server = require('../../../../src/server');
 
-const firstUser  = Factory.build('user');
-const secondUser = Factory.build('user');
+const firstUser = Factory.build('user');
 
 describe('user integration', () => {
-
-  describe('list', () => {
-
-    beforeEach(() => {
-      return Knex('users').insert([firstUser, secondUser]);
-    });
-
-    it('returns a collection of users', () => {
-      return Server.injectThen({
-        method: 'GET',
-        url: '/users'
-      })
-      .then((res) => {
-        expect(res.statusCode).to.eql(200);
-      });
-    });
-
-  });
 
   describe('retrieve', () => {
 
