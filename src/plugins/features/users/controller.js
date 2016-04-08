@@ -8,6 +8,10 @@ const Errors = require('../../../libraries/errors');
 const JWT    = require('../../../libraries/jwt');
 const User   = require('../../../models/user');
 
+exports.list = function () {
+  return new User().fetchAll();
+};
+
 exports.retrieve = function (username) {
   return new User().where('username', username).fetch({ require: true })
   .catch(User.NotFoundError, () => {
