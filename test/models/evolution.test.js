@@ -14,24 +14,11 @@ describe('evolution model', () => {
       const json = model.serialize();
 
       expect(json).to.have.all.keys([
-        'evolving_pokemon',
-        'evolved_pokemon',
-        'stage',
         'trigger',
         'level',
         'stone',
         'held_item',
         'notes'
-      ]);
-      expect(json.evolving_pokemon).to.have.all.keys([
-        'national_id',
-        'name',
-        'icon_url'
-      ]);
-      expect(json.evolved_pokemon).to.have.all.keys([
-        'national_id',
-        'name',
-        'icon_url'
       ]);
     });
 

@@ -10,14 +10,11 @@ module.exports = Bookshelf.model('Capture', Bookshelf.Model.extend({
     return this.belongsTo(Pokemon, 'pokemon_id');
   },
   serialize () {
-    return this.related('pokemon').serialize()
-    .then((pokemon) => {
-      return {
-        user_id: this.get('user_id'),
-        pokemon,
-        captured: this.get('captured')
-      };
-    });
+    return {
+      user_id: this.get('user_id'),
+      pokemon: this.related('pokemon').get('capture_summary'),
+      captured: this.get('captured')
+    };
   }
 }, {
   RELATED: ['pokemon']

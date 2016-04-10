@@ -10,12 +10,29 @@ module.exports = Bookshelf.model('Pokemon', Bookshelf.Model.extend({
   evolutions () {
     return new Evolution()
     .where('evolution_family_id', this.get('evolution_family_id'))
+    .query((qb) => qb.orderBy('evolved_pokemon_id'))
     .fetchAll({ withRelated: Evolution.RELATED })
     .get('models');
   },
   virtuals: {
     bulbapedia_url () {
       return `http://bulbapedia.bulbagarden.net/wiki/${encodeURIComponent(this.get('name'))}_(Pok%C3%A9mon)`;
+    },
+    capture_summary () {
+      return {
+        national_id: this.get('national_id'),
+        name: this.get('name'),
+        kanto_id: this.get('kanto_id') || undefined,
+        johto_id: this.get('johto_id') || undefined,
+        hoenn_id: this.get('hoenn_id') || undefined,
+        sinnoh_id: this.get('sinnoh_id') || undefined,
+        unova_id: this.get('unova_id') || undefined,
+        central_kalos_id: this.get('central_kalos_id') || undefined,
+        coastal_kalos_id: this.get('coastal_kalos_id') || undefined,
+        mountain_kalos_id: this.get('mountain_kalos_id') || undefined,
+        regionless: this.get('regionless') || undefined,
+        icon_url: this.get('icon_url')
+      };
     },
     summary () {
       return {
@@ -42,13 +59,41 @@ module.exports = Bookshelf.model('Pokemon', Bookshelf.Model.extend({
   },
   serialize () {
     return this.evolutions()
-    .reduce((stages, evolution) => {
+    .reduce((family, evolution) => {
       const i = evolution.get('stage') - 1;
-      stages[i] = stages[i] || [];
-      stages[i].push(evolution);
-      return stages;
-    }, [])
-    .then((stages) => {
+      const breed = evolution.get('trigger') === 'breed';
+      let first;
+      let second;
+
+      family.pokemon[i] = family.pokemon[i] || [];
+      family.pokemon[i + 1] = family.pokemon[i + 1] || [];
+      if (breed) {
+        first = evolution.related('evolved_pokemon').get('summary');
+        second = evolution.related('evolving_pokemon').get('summary');
+      } else {
+        first = evolution.related('evolving_pokemon').get('summary');
+        second = evolution.related('evolved_pokemon').get('summary');
+      }
+
+      if (!family.pokemon[i].find((p) => p.national_id === first.national_id)) {
+        family.pokemon[i].push(first);
+      }
+      if (!family.pokemon[i + 1].find((p) => p.national_id === second.national_id)) {
+        family.pokemon[i + 1].push(second);
+      }
+
+      family.evolutions[i] = family.evolutions[i] || [];
+      family.evolutions[i].push(evolution.serialize());
+
+      return family;
+    }, { pokemon: [], evolutions: [] })
+    .then((family) => {
+      if (family.pokemon.length === 0) {
+        family.pokemon.push([this.get('summary')]);
+      }
+      return family;
+    })
+    .then((family) => {
       return {
         national_id: this.get('national_id'),
         name: this.get('name'),
@@ -67,7 +112,7 @@ module.exports = Bookshelf.model('Pokemon', Bookshelf.Model.extend({
         y_locations: this.get('y_locations'),
         or_locations: this.get('or_locations'),
         as_locations: this.get('as_locations'),
-        evolutions: stages.map((stage) => stage.map((evolution) => evolution.serialize()))
+        evolution_family: family
       };
     });
   }
