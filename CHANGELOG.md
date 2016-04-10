@@ -1,3 +1,13 @@
+### 1.3.0 (2016-4-9)
+
+##### New Features
+
+* **evolutions:** add evolutions table return them with pokemon ([ad32168d](https://github.com/robinjoseph08/api.pokedextracker.com/commit/ad32168dc1e84291b35f2f1d36c8243f30425fa2))
+
+##### Bug Fixes
+
+* **users:** remove findAll endpoint ([bb599931](https://github.com/robinjoseph08/api.pokedextracker.com/commit/bb599931fbdf538d29ead3003fae781b460deea6))
+
 #### 1.2.1 (2016-3-31)
 
 ##### Bug Fixes
