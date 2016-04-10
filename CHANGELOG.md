@@ -1,3 +1,9 @@
+### 1.4.0 (2016-4-10)
+
+##### New Features
+
+* **captures:** only return what's necessary ([56373912](https://github.com/robinjoseph08/api.pokedextracker.com/commit/563739127082fefd649f97ac665dcce9713a70f6))
+
 ### 1.3.0 (2016-4-9)
 
 ##### New Features
