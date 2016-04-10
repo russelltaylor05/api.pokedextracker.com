@@ -14,35 +14,27 @@ describe('capture model', () => {
     it('returns the correct fields', () => {
       const model = Capture.forge(capture);
       model.relations.pokemon = Pokemon.forge(pokemon);
+      const json = model.serialize();
 
-      return model.serialize()
-      .then((json) => {
-        expect(json).to.have.all.keys([
-          'pokemon',
-          'user_id',
-          'captured'
-        ]);
-        expect(json.pokemon).to.have.all.keys([
-          'national_id',
-          'name',
-          'kanto_id',
-          'johto_id',
-          'hoenn_id',
-          'sinnoh_id',
-          'unova_id',
-          'central_kalos_id',
-          'coastal_kalos_id',
-          'mountain_kalos_id',
-          'regionless',
-          'icon_url',
-          'bulbapedia_url',
-          'x_locations',
-          'y_locations',
-          'or_locations',
-          'as_locations',
-          'evolutions'
-        ]);
-      });
+      expect(json).to.have.all.keys([
+        'pokemon',
+        'user_id',
+        'captured'
+      ]);
+      expect(json.pokemon).to.have.all.keys([
+        'national_id',
+        'name',
+        'kanto_id',
+        'johto_id',
+        'hoenn_id',
+        'sinnoh_id',
+        'unova_id',
+        'central_kalos_id',
+        'coastal_kalos_id',
+        'mountain_kalos_id',
+        'regionless',
+        'icon_url'
+      ]);
     });
 
   });

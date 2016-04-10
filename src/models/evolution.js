@@ -13,9 +13,6 @@ module.exports = Bookshelf.model('Evolution', Bookshelf.Model.extend({
   },
   serialize () {
     return {
-      evolving_pokemon: this.related('evolving_pokemon').get('summary'),
-      evolved_pokemon: this.related('evolved_pokemon').get('summary'),
-      stage: this.get('stage'),
       trigger: this.get('trigger'),
       level: this.get('level') || undefined,
       stone: this.get('stone') || undefined,

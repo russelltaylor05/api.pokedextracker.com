@@ -3,18 +3,21 @@
 const Knex    = require('../../src/libraries/knex');
 const Pokemon = require('../../src/models/pokemon');
 
-const pokemon      = Factory.build('pokemon');
-const otherPokemon = Factory.build('pokemon');
+const pokemon          = Factory.build('pokemon');
+const firstPokemon     = Factory.build('pokemon');
+const secondPokemon    = Factory.build('pokemon');
+const unevolvedPokemon = Factory.build('pokemon');
 
 const evolution      = Factory.build('evolution', { evolving_pokemon_id: pokemon.national_id, evolved_pokemon_id: pokemon.national_id, evolution_family_id: pokemon.evolution_family_id });
-const otherEvolution = Factory.build('evolution', { evolving_pokemon_id: otherPokemon.national_id, evolved_pokemon_id: otherPokemon.national_id, evolution_family_id: otherPokemon.evolution_family_id });
+const otherEvolution = Factory.build('evolution', { evolving_pokemon_id: firstPokemon.national_id, evolved_pokemon_id: secondPokemon.national_id, evolution_family_id: firstPokemon.evolution_family_id });
+const breedEvolution = Factory.build('evolution', { trigger: 'breed', evolving_pokemon_id: secondPokemon.national_id, evolved_pokemon_id: firstPokemon.national_id, evolution_family_id: firstPokemon.evolution_family_id });
 
 describe('pokemon model', () => {
 
   beforeEach(() => {
-    return Knex('pokemon').insert([pokemon, otherPokemon])
+    return Knex('pokemon').insert([pokemon, firstPokemon, secondPokemon, unevolvedPokemon])
     .then(() => {
-      return Knex('evolutions').insert([evolution, otherEvolution]);
+      return Knex('evolutions').insert([evolution, otherEvolution, breedEvolution]);
     });
   });
 
@@ -36,6 +39,27 @@ describe('pokemon model', () => {
 
       it('URL-encodes the name in the Bulbapedia link', () => {
         expect(Pokemon.forge({ name: 'Pokémon' }).get('bulbapedia_url')).to.eql('http://bulbapedia.bulbagarden.net/wiki/Pok%C3%A9mon_(Pok%C3%A9mon)');
+      });
+
+    });
+
+    describe('capture_summary', () => {
+
+      it('only includes the fields needed for the tracker view', () => {
+        expect(Pokemon.forge().get('capture_summary')).to.have.all.keys([
+          'national_id',
+          'name',
+          'kanto_id',
+          'johto_id',
+          'hoenn_id',
+          'sinnoh_id',
+          'unova_id',
+          'central_kalos_id',
+          'coastal_kalos_id',
+          'mountain_kalos_id',
+          'regionless',
+          'icon_url'
+        ]);
       });
 
     });
@@ -121,20 +145,55 @@ describe('pokemon model', () => {
           'y_locations',
           'or_locations',
           'as_locations',
+          'evolution_family'
+        ]);
+        expect(json.evolution_family).to.have.all.keys([
+          'pokemon',
           'evolutions'
         ]);
-        expect(json.evolutions).to.have.length(1);
-        expect(json.evolutions[0]).to.have.length(1);
-        expect(json.evolutions[0][0]).to.have.all.keys([
-          'evolving_pokemon',
-          'evolved_pokemon',
-          'stage',
+        expect(json.evolution_family.pokemon).to.have.length(2);
+        expect(json.evolution_family.pokemon[0]).to.have.length(1);
+        expect(json.evolution_family.pokemon[1]).to.have.length(1);
+        expect(json.evolution_family.pokemon[0][0]).to.have.all.keys([
+          'national_id',
+          'name',
+          'icon_url'
+        ]);
+        expect(json.evolution_family.evolutions).to.have.length(1);
+        expect(json.evolution_family.evolutions[0]).to.have.length(1);
+        expect(json.evolution_family.evolutions[0][0]).to.have.all.keys([
           'trigger',
           'level',
           'stone',
           'held_item',
           'notes'
         ]);
+      });
+    });
+
+    it('flips evolution orders for "breed"s', () => {
+      return Pokemon.forge(firstPokemon).serialize()
+      .then((json) => json.evolution_family.pokemon)
+      .map((poke) => poke.map((p) => p.national_id))
+      .then((poke) => {
+        expect(poke[0]).to.include(firstPokemon.national_id)
+        expect(poke[1]).to.include(secondPokemon.national_id)
+      });
+    });
+
+    it('does not insert duplicate evolutions', () => {
+      return Pokemon.forge(firstPokemon).serialize()
+      .then((json) => {
+        expect(json.evolution_family.pokemon[0]).to.have.length(1);
+        expect(json.evolution_family.pokemon[1]).to.have.length(1);
+      });
+    });
+
+    it('inserts the pokemon into evolutions if the pokemon does not evolve', () => {
+      return Pokemon.forge(unevolvedPokemon).serialize()
+      .then((json) => {
+        expect(json.evolution_family.pokemon[0]).to.have.length(1);
+        expect(json.evolution_family.pokemon[0][0].national_id).to.eql(unevolvedPokemon.national_id);
       });
     });
 
