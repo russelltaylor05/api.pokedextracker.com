@@ -2,7 +2,7 @@
 
 const Bookshelf = require('../libraries/bookshelf');
 
-module.exports = Bookshelf.Model.extend({
+module.exports = Bookshelf.model('User', Bookshelf.Model.extend({
   tableName: 'users',
   hasTimestamps: ['date_created', 'date_modified'],
   serialize () {
@@ -14,4 +14,4 @@ module.exports = Bookshelf.Model.extend({
       date_modified: this.get('date_modified')
     };
   }
-});
+}));

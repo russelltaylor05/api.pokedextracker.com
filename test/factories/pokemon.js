@@ -2,6 +2,7 @@
 
 module.exports = Factory.define('pokemon')
   .sequence('national_id')
+  .sequence('evolution_family_id')
   .attr('name', '')
   .attr('type1', 'fire')
   .attr('icon_url', '')
