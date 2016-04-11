@@ -1,3 +1,9 @@
+#### 1.4.1 (2016-4-10)
+
+##### Bug Fixes
+
+* **evolutions:** fix ordering of tyrogue evolutions ([69190349](https://github.com/robinjoseph08/api.pokedextracker.com/commit/691903490a725a1f0fcafcde14a5d1ba6a674674))
+
 ### 1.4.0 (2016-4-10)
 
 ##### New Features
