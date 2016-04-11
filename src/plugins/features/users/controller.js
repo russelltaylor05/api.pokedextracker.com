@@ -9,7 +9,7 @@ const JWT    = require('../../../libraries/jwt');
 const User   = require('../../../models/user');
 
 exports.list = function () {
-  return new User().fetchAll();
+  return new User().query((qb) => qb.orderBy('id')).fetchAll();
 };
 
 exports.retrieve = function (username) {
