@@ -10,7 +10,9 @@ module.exports = Bookshelf.model('Pokemon', Bookshelf.Model.extend({
   evolutions () {
     return new Evolution()
     .where('evolution_family_id', this.get('evolution_family_id'))
-    .query((qb) => qb.orderBy('evolved_pokemon_id'))
+    .query((qb) => {
+      qb.orderByRaw('CASE WHEN trigger = \'breed\' THEN evolving_pokemon_id ELSE evolved_pokemon_id END, trigger DESC');
+    })
     .fetchAll({ withRelated: Evolution.RELATED })
     .get('models');
   },
