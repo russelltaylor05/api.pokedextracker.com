@@ -1,3 +1,9 @@
+#### 1.4.2 (2016-4-11)
+
+##### Bug Fixes
+
+* **users:** order by id ([56816132](https://github.com/robinjoseph08/api.pokedextracker.com/commit/5681613234996b22fb84e738490ee760dea776f6))
+
 #### 1.4.1 (2016-4-10)
 
 ##### Bug Fixes
