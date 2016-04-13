@@ -1,3 +1,9 @@
+### 1.5.0 (2016-4-12)
+
+##### New Features
+
+* **captures:** accept array of pokemon for creation and deletion ([a82ead68](https://github.com/robinjoseph08/api.pokedextracker.com/commit/a82ead68d00d7a441670df464e5f61574dad5064))
+
 #### 1.4.2 (2016-4-11)
 
 ##### Bug Fixes
