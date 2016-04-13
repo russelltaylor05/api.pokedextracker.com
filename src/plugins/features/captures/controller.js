@@ -37,22 +37,22 @@ exports.list = function (query) {
 };
 
 exports.create = function (payload, auth) {
-  return new Pokemon({ national_id: payload.pokemon }).fetch({ require: true })
-  .catch(Pokemon.NotFoundError, () => {
-    throw new Errors.NotFound('pokemon');
+  return new Pokemon().query((qb) => qb.whereIn('national_id', payload.pokemon)).fetchAll()
+  .then((pokemon) => {
+    if (pokemon.length !== payload.pokemon.length) {
+      throw new Errors.NotFound('pokemon');
+    }
+    return payload.pokemon;
   })
-  .then(() => Knex('captures').insert({ pokemon_id: payload.pokemon, user_id: auth.id, captured: true }))
-  .catch(Errors.DuplicateKey, () => {
-    throw new Errors.AlreadyExists('capture');
+  .map((pokemonId) => {
+    return Knex('captures').insert({ pokemon_id: pokemonId, user_id: auth.id, captured: true })
+    .catch(Errors.DuplicateKey, () => {});
   })
-  .then(() => new Capture({ pokemon_id: payload.pokemon, user_id: auth.id }).fetch({ withRelated: Capture.RELATED }));
+  .then(() => new Capture().query((qb) => qb.whereIn('pokemon_id', payload.pokemon).where('user_id', auth.id)).fetchAll({ withRelated: Capture.RELATED }));
 };
 
 exports.delete = function (payload, auth) {
-  return new Capture().where({ pokemon_id: payload.pokemon, user_id: auth.id }).destroy({ require: true })
-  .catch(Capture.NoRowsDeletedError, () => {
-    throw new Errors.NotFound('capture');
-  })
+  return new Capture().query((qb) => qb.whereIn('pokemon_id', payload.pokemon).where('user_id', auth.id)).destroy()
   .then(() => {
     return { deleted: true };
   });

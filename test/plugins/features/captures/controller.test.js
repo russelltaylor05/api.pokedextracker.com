@@ -54,25 +54,29 @@ describe('capture controller', () => {
   describe('create', () => {
 
     it('creates a capture', () => {
-      return Controller.create({ pokemon: secondPokemon.national_id }, { id: user.id })
-      .then((capture) => {
-        expect(capture.get('pokemon_id')).to.eql(secondPokemon.national_id);
-        expect(capture.get('user_id')).to.eql(user.id);
-        expect(capture.get('captured')).to.be.true;
+      return Controller.create({ pokemon: [secondPokemon.national_id] }, { id: user.id })
+      .then((captures) => {
+        expect(captures).to.have.length(1);
+        expect(captures.at(0).get('pokemon_id')).to.eql(secondPokemon.national_id);
+        expect(captures.at(0).get('user_id')).to.eql(user.id);
+        expect(captures.at(0).get('captured')).to.be.true;
       });
     });
 
     it('rejects with a bad pokemon id', () => {
-      return Controller.create({ pokemon: -1 }, { id: user.id })
+      return Controller.create({ pokemon: [-1] }, { id: user.id })
       .catch((err) => err) .then((err) => {
         expect(err).to.be.an.instanceof(Errors.NotFound);
       });
     });
 
-    it('rejects if the capture already exists', () => {
-      return Controller.create({ pokemon: firstPokemon.national_id }, { id: user.id })
-      .catch((err) => err) .then((err) => {
-        expect(err).to.be.an.instanceof(Errors.AlreadyExists);
+    it('does not err for duplicate captures', () => {
+      return Controller.create({ pokemon: [firstPokemon.national_id] }, { id: user.id })
+      .then((captures) => {
+        expect(captures).to.have.length(1);
+        expect(captures.at(0).get('pokemon_id')).to.eql(firstPokemon.national_id);
+        expect(captures.at(0).get('user_id')).to.eql(user.id);
+        expect(captures.at(0).get('captured')).to.be.true;
       });
     });
 
@@ -81,7 +85,7 @@ describe('capture controller', () => {
   describe('delete', () => {
 
     it('deletes a capture', () => {
-      return Controller.delete({ pokemon: firstPokemon.national_id }, { id: user.id })
+      return Controller.delete({ pokemon: [firstPokemon.national_id] }, { id: user.id })
       .then((res) => {
         expect(res.deleted).to.be.true;
 
@@ -89,13 +93,6 @@ describe('capture controller', () => {
       })
       .then((capture) => {
         expect(capture).to.be.null;
-      });
-    });
-
-    it('rejects with a bad pokemon id', () => {
-      return Controller.delete({ pokemon: -1 }, { id: user.id })
-      .catch((err) => err) .then((err) => {
-        expect(err).to.be.an.instanceof(Errors.NotFound);
       });
     });
 

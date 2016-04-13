@@ -19,7 +19,7 @@ exports.register = (server, options, next) => {
     config: {
       auth: 'token',
       handler: (request, reply) => reply(Controller.create(request.payload, request.auth.credentials)),
-      validate: { payload: { pokemon: Joi.number().integer().required() } }
+      validate: { payload: { pokemon: Joi.array().items(Joi.number().integer()).single().required() } }
     }
   }, {
     method: 'DELETE',
@@ -27,7 +27,7 @@ exports.register = (server, options, next) => {
     config: {
       auth: 'token',
       handler: (request, reply) => reply(Controller.delete(request.payload, request.auth.credentials)),
-      validate: { payload: { pokemon: Joi.number().integer().required() } }
+      validate: { payload: { pokemon: Joi.array().items(Joi.number().integer()).single().required() } }
     }
   }]);
 
