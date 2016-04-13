@@ -65,7 +65,7 @@ describe('capture integration', () => {
       })
       .then((res) => {
         expect(res.statusCode).to.eql(200);
-        expect(res.result.pokemon.national_id).to.eql(secondPokemon.national_id);
+        expect(res.result[0].pokemon.national_id).to.eql(secondPokemon.national_id);
       });
     });
 
