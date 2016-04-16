@@ -1,3 +1,9 @@
+#### 1.5.1 (2016-4-16)
+
+##### Bug Fixes
+
+* **users:** make user create atomic ([c181aa75](https://github.com/robinjoseph08/api.pokedextracker.com/commit/c181aa753430d335eea04e96f12c0107fd4b17dd))
+
 ### 1.5.0 (2016-4-12)
 
 ##### New Features
