@@ -20,18 +20,14 @@ exports.retrieve = function (username) {
 };
 
 exports.create = function (payload) {
-  return new User().where('username', payload.username).fetch()
-  .then((user) => {
-    if (user) {
-      throw new Errors.ExistingUsername();
-    }
-
-    return Bcrypt.hashAsync(payload.password, Config.SALT_ROUNDS);
-  })
+  return Bcrypt.hashAsync(payload.password, Config.SALT_ROUNDS)
   .then((hash) => {
     payload.password = hash;
 
     return new User(payload).save();
   })
-  .then((user) => JWT.sign(user));
+  .then((user) => JWT.sign(user))
+  .catch(Errors.DuplicateKey, () => {
+    throw new Errors.ExistingUsername();
+  });
 };
