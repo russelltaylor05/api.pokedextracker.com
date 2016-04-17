@@ -1,3 +1,9 @@
+### 1.6.0 (2016-4-16)
+
+##### New Features
+
+* **users:** store last_login and last_ip ([59f0e070](https://github.com/robinjoseph08/api.pokedextracker.com/commit/59f0e070892dafcf12b2a9313223f3c729b5dcab))
+
 #### 1.5.1 (2016-4-16)
 
 ##### Bug Fixes
