@@ -19,10 +19,14 @@ exports.retrieve = function (username) {
   });
 };
 
-exports.create = function (payload) {
+exports.create = function (payload, request) {
   return Bcrypt.hashAsync(payload.password, Config.SALT_ROUNDS)
   .then((hash) => {
+    const xff = request.headers['x-forwarded-for'];
+    const ip = xff ? xff.split(',')[0].trim() : request.info.remoteAddress;
+
     payload.password = hash;
+    payload.last_ip = ip;
 
     return new User(payload).save();
   })

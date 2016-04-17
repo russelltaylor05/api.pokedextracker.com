@@ -7,7 +7,7 @@ const Errors = require('../../../libraries/errors');
 const JWT    = require('../../../libraries/jwt');
 const User   = require('../../../models/user');
 
-exports.create = function (payload) {
+exports.create = function (payload, request) {
   return new User().where('username', payload.username).fetch({ require: true })
   .catch(User.NotFoundError, () => {
     throw new Errors.NotFound('user');
@@ -19,6 +19,12 @@ exports.create = function (payload) {
         throw new Errors.InvalidPassword();
       }
     });
+  })
+  .tap((user) => {
+    const xff = request.headers['x-forwarded-for'];
+    const ip = xff ? xff.split(',')[0].trim() : request.info.remoteAddress;
+
+    return user.save({ last_ip: ip, last_login: new Date() });
   })
   .then((user) => JWT.sign(user));
 };
