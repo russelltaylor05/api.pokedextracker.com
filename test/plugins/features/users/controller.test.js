@@ -3,6 +3,7 @@
 const Controller = require('../../../../src/plugins/features/users/controller');
 const Errors     = require('../../../../src/libraries/errors');
 const Knex       = require('../../../../src/libraries/knex');
+const User       = require('../../../../src/models/user');
 
 const firstUser  = Factory.build('user');
 const secondUser = Factory.build('user');
@@ -53,17 +54,29 @@ describe('user controller', () => {
 
   describe('create', () => {
 
+    const request = { headers: {}, info: {} };
+
     it('saves a user with a hashed password', () => {
-      return Controller.create({ username: 'test', password: 'test' })
+      return Controller.create({ username: 'test', password: 'test' }, request)
       .then((session) => {
         expect(session.token).to.be.a('string');
+      });
+    });
+
+    it('saves last login date', () => {
+      const username = 'test';
+
+      return Controller.create({ username, password: 'test' }, request)
+      .then(() => new User().where('username', username).fetch())
+      .then((user) => {
+        expect(user.get('last_login')).to.be.an.instanceof(Date);
       });
     });
 
     it('rejects if the username is already taken', () => {
       return Knex('users').insert(firstUser)
       .then(() => {
-        return Controller.create({ username: firstUser.username, password: 'test' });
+        return Controller.create({ username: firstUser.username, password: 'test' }, request);
       })
       .catch((err) => err)
       .then((err) => {

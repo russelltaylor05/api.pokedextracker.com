@@ -9,7 +9,7 @@ exports.register = (server, options, next) => {
     method: 'POST',
     path: '/sessions',
     config: {
-      handler: (request, reply) => reply(Controller.create(request.payload)),
+      handler: (request, reply) => reply(Controller.create(request.payload, request)),
       validate: { payload: SessionValidator }
     }
   }]);
