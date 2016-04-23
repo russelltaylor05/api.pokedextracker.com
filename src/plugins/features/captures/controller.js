@@ -1,12 +1,14 @@
 'use strict';
 
+const Bluebird = require('bluebird');
+
 const Capture = require('../../../models/capture');
 const Errors  = require('../../../libraries/errors');
 const Knex    = require('../../../libraries/knex');
 const Pokemon = require('../../../models/pokemon');
 const User    = require('../../../models/user');
 
-exports.list = function (query) {
+exports.list = function (query, pokemon) {
   return new User({ id: query.user }).fetch({ require: true })
   .catch(User.NotFoundError, () => {
     throw new Errors.NotFound('user');
@@ -18,11 +20,7 @@ exports.list = function (query) {
     return captures;
   }, {})
   .then((captures) => {
-    let pokemon;
-
-    return new Pokemon().query((qb) => qb.orderBy('national_id')).fetchAll()
-    .get('models')
-    .tap((p) => pokemon = p)
+    return Bluebird.resolve(pokemon)
     .then((p) => new Array(p.length))
     .map((_, i) => {
       if (captures[i + 1]) {

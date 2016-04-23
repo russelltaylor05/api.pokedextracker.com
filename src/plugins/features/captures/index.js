@@ -3,14 +3,17 @@
 const Joi = require('joi');
 
 const Controller = require('./controller');
+const Pokemon    = require('../../../models/pokemon');
 
 exports.register = (server, options, next) => {
+
+  let pokemon;
 
   server.route([{
     method: 'GET',
     path: '/captures',
     config: {
-      handler: (request, reply) => reply(Controller.list(request.query)),
+      handler: (request, reply) => reply(Controller.list(request.query, pokemon)),
       validate: { query: { user: Joi.number().integer().required() } }
     }
   }, {
@@ -31,7 +34,12 @@ exports.register = (server, options, next) => {
     }
   }]);
 
-  next();
+  return new Pokemon().query((qb) => qb.orderBy('national_id')).fetchAll()
+  .get('models')
+  .then((p) => {
+    pokemon = p;
+    next();
+  });
 
 };
 
