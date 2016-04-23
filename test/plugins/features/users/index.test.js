@@ -1,5 +1,8 @@
 'use strict';
 
+const JWT = require('jsonwebtoken');
+
+const Config = require('../../../../config');
 const Knex   = require('../../../../src/libraries/knex');
 const Server = require('../../../../src/server');
 const User   = require('../../../../src/models/user');
@@ -96,6 +99,28 @@ describe('user integration', () => {
       .then(() => new User().where('username', username).fetch())
       .then((user) => {
         expect(user.get('last_ip')).to.eql(ips[0]);
+      });
+    });
+
+  });
+
+  describe('update', () => {
+
+    const auth = `Bearer ${JWT.sign(firstUser, Config.JWT_SECRET)}`;
+
+    beforeEach(() => {
+      return Knex('users').insert(firstUser);
+    });
+
+    it('updates a user', () => {
+      return Server.injectThen({
+        method: 'POST',
+        url: `/users/${firstUser.username}`,
+        headers: { authorization: auth },
+        payload: { friend_code: '4321-4321-4321' }
+      })
+      .then((res) => {
+        expect(res.statusCode).to.eql(200);
       });
     });
 

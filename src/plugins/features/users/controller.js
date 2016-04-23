@@ -35,3 +35,10 @@ exports.create = function (payload, request) {
     throw new Errors.ExistingUsername();
   });
 };
+
+exports.update = function (username, payload, auth) {
+  return new User({ id: auth.id }).where('username', username).save(payload)
+  .catch(User.NoRowsUpdatedError, () => {
+    throw new Errors.ForbiddenAction('updating this user');
+  });
+};

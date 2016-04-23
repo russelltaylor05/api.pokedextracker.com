@@ -86,4 +86,30 @@ describe('user controller', () => {
 
   });
 
+  describe('update', () => {
+
+    beforeEach(() => {
+      return Knex('users').insert([firstUser, secondUser]);
+    });
+
+    it('updates a user', () => {
+      const friendCode = '4321-4321-4321';
+
+      return Controller.update(firstUser.username, { friend_code: friendCode }, { id: firstUser.id })
+      .then((user) => new User({ id: user.id }).fetch())
+      .then((user) => {
+        expect(user.get('friend_code')).to.eql(friendCode);
+      });
+    });
+
+    it('rejects if the username and auth id do not match', () => {
+      return Controller.update(firstUser.username, {}, { id: secondUser.id })
+      .catch((err) => err)
+      .then((err) => {
+        expect(err).to.be.an.instanceof(Errors.ForbiddenAction);
+      });
+    });
+
+  });
+
 });
