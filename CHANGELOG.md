@@ -1,3 +1,21 @@
+### 1.7.0 (2016-4-23)
+
+##### Chores
+
+* **node:** specify a stricter node version ([a586e081](https://github.com/robinjoseph08/api.pokedextracker.com/commit/a586e08111804bb92a8dcf11dea38d2570dca084))
+
+##### Documentation Changes
+
+* **readme:** update readme and add license and contributing ([3cb53b1b](https://github.com/robinjoseph08/api.pokedextracker.com/commit/3cb53b1ba60232a2e81b41536874cdf02bbb5cfc))
+
+##### New Features
+
+* **users:** add update users endpoint ([0d9a605e](https://github.com/robinjoseph08/api.pokedextracker.com/commit/0d9a605e91a95c387ee277b05f33ad7993c5ae91))
+
+##### Refactors
+
+* **captures:** prefetch and cache pokemon to speed things up ([a388e20f](https://github.com/robinjoseph08/api.pokedextracker.com/commit/a388e20f60c6366027e316256141afa3762ef7bf))
+
 ### 1.6.0 (2016-4-16)
 
 ##### New Features
