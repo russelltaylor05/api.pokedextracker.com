@@ -6,6 +6,7 @@ const Capture    = require('../../../../src/models/capture');
 const Controller = require('../../../../src/plugins/features/captures/controller');
 const Errors     = require('../../../../src/libraries/errors');
 const Knex       = require('../../../../src/libraries/knex');
+const Pokemon    = require('../../../../src/models/pokemon');
 
 const firstPokemon  = Factory.build('pokemon', { national_id: 1 });
 const secondPokemon = Factory.build('pokemon', { national_id: 2 });
@@ -29,7 +30,9 @@ describe('capture controller', () => {
   describe('list', () => {
 
     it('returns a collection of captures, filling in those that do not exist', () => {
-      return Controller.list({ user: user.id })
+      return new Pokemon().query((qb) => qb.orderBy('national_id')).fetchAll()
+      .get('models')
+      .then((pokemon) => Controller.list({ user: user.id }, pokemon))
       .map((capture) => capture.serialize())
       .then((captures) => {
         expect(captures).to.have.length(2);

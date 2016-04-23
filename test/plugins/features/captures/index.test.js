@@ -37,7 +37,7 @@ describe('capture integration', () => {
       })
       .then((res) => {
         expect(res.statusCode).to.eql(200);
-        expect(res.result).to.have.length(2);
+        expect(res.result).to.be.an.instanceof(Array);
       });
     });
 
