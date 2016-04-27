@@ -1,3 +1,9 @@
+#### 1.7.1 (2016-4-27)
+
+##### New Features
+
+* **config:** add staging env ([fee851b8](https://github.com/robinjoseph08/api.pokedextracker.com/commit/fee851b829276b60506db45fa3dd371b6d876a97))
+
 ### 1.7.0 (2016-4-23)
 
 ##### Chores
