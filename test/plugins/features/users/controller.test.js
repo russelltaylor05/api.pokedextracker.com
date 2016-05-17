@@ -73,6 +73,17 @@ describe('user controller', () => {
       });
     });
 
+    it('saves referrer', () => {
+      const username = 'test';
+      const referrer = 'http://test.com';
+
+      return Controller.create({ username, password: 'test', referrer }, request)
+      .then(() => new User().where('username', username).fetch())
+      .then((user) => {
+        expect(user.get('referrer')).to.eql(referrer);
+      });
+    });
+
     it('rejects if the username is already taken', () => {
       return Knex('users').insert(firstUser)
       .then(() => {
