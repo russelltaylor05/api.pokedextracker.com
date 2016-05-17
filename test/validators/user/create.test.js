@@ -75,4 +75,40 @@ describe('user create validator', () => {
 
   });
 
+  describe('referrer', () => {
+
+    it('is optional', () => {
+      const data = { username: 'testing', password: 'testtest', friend_code: '1234-1234-1234' };
+      const result = Joi.validate(data, UserCreateValidator);
+
+      expect(result.error).to.be.null;
+      expect(result.value.referrer).to.be.undefined;
+    });
+
+    it('can be a string', () => {
+      const data = { username: 'testing', password: 'testtest', friend_code: '1234-1234-1234', referrer: 'http://test.com' };
+      const result = Joi.validate(data, UserCreateValidator);
+
+      expect(result.error).to.be.null;
+      expect(result.value.referrer).to.eql(data.referrer);
+    });
+
+    it('converts the empty string to undefined', () => {
+      const data = { username: 'testing', password: 'testtest', friend_code: '1234-1234-1234', referrer: '' };
+      const result = Joi.validate(data, UserCreateValidator);
+
+      expect(result.error).to.be.null;
+      expect(result.value.referrer).to.be.undefined;
+    });
+
+    it('converts null to undefined', () => {
+      const data = { username: 'testing', password: 'testtest', friend_code: '1234-1234-1234', referrer: null };
+      const result = Joi.validate(data, UserCreateValidator);
+
+      expect(result.error).to.be.null;
+      expect(result.value.referrer).to.be.undefined;
+    });
+
+  });
+
 });

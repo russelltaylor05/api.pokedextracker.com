@@ -5,7 +5,8 @@ const Joi = require('joi');
 module.exports = Joi.object().keys({
   username: Joi.string().token().max(20).trim().required(),
   password: Joi.string().min(8).max(72).required(),
-  friend_code: Joi.string().regex(/^\d{4}-\d{4}-\d{4}$/)
+  friend_code: Joi.string().regex(/^\d{4}-\d{4}-\d{4}$/),
+  referrer: Joi.string().empty(['', null])
 })
 .options({
   language: {

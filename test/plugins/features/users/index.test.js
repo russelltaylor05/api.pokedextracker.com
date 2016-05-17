@@ -56,7 +56,8 @@ describe('user integration', () => {
         url: '/users',
         payload: {
           username: 'test',
-          password: 'testtest'
+          password: 'testtest',
+          referrer: 'http://test.com'
         }
       })
       .then((res) => {
