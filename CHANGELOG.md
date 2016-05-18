@@ -1,3 +1,9 @@
+### 1.8.0 (2016-5-17)
+
+##### New Features
+
+* **users:** allow referrer ([d93af588](https://github.com/robinjoseph08/api.pokedextracker.com/commit/d93af58852447784c381f79d78e4443ed7262c86))
+
 #### 1.7.1 (2016-4-27)
 
 ##### New Features
