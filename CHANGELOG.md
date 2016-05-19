@@ -1,3 +1,9 @@
+#### 1.8.1 (2016-5-18)
+
+##### Bug Fixes
+
+* **users:** check for duplicate usernames to prevent skipping ids ([294f724e](https://github.com/robinjoseph08/api.pokedextracker.com/commit/294f724e5ebc4dca73680cf356617bcfce960ec4))
+
 ### 1.8.0 (2016-5-17)
 
 ##### New Features
