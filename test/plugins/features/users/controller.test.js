@@ -1,5 +1,7 @@
 'use strict';
 
+const Sinon = require('sinon');
+
 const Controller = require('../../../../src/plugins/features/users/controller');
 const Errors     = require('../../../../src/libraries/errors');
 const Knex       = require('../../../../src/libraries/knex');
@@ -92,6 +94,19 @@ describe('user controller', () => {
       .catch((err) => err)
       .then((err) => {
         expect(err).to.be.an.instanceof(Errors.ExistingUsername);
+      });
+    });
+
+    it('rejects if the username is taken after the fetch', () => {
+      Sinon.stub(User.prototype, 'save').throws(new Error('duplicate key value'));
+
+      return Controller.create({ username: firstUser.username, password: 'test' }, request)
+      .catch((err) => err)
+      .then((err) => {
+        expect(err).to.be.an.instanceof(Errors.ExistingUsername);
+      })
+      .finally(() => {
+        User.prototype.save.restore();
       });
     });
 

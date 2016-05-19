@@ -28,6 +28,13 @@ exports.create = function (payload, request) {
     payload.password = hash;
     payload.last_ip = ip;
 
+    return new User().where('username', payload.username).fetch();
+  })
+  .then((user) => {
+    if (user) {
+      throw new Errors.ExistingUsername();
+    }
+
     return new User(payload).save();
   })
   .then((user) => JWT.sign(user))
