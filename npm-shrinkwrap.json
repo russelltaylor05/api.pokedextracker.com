@@ -355,8 +355,8 @@
     },
     "create-boom-error": {
       "version": "0.1.0",
-      "from": "create-boom-error@latest",
-      "resolved": "http://registry.nodejitsu.com/create-boom-error/-/create-boom-error-0.1.0.tgz",
+      "from": "create-boom-error@*",
+      "resolved": "https://registry.npmjs.org/create-boom-error/-/create-boom-error-0.1.0.tgz",
       "dependencies": {
         "boom": {
           "version": "2.10.1",
@@ -575,7 +575,8 @@
         },
         "wordwrap": {
           "version": "1.0.0",
-          "from": "wordwrap@>=1.0.0 <1.1.0"
+          "from": "wordwrap@1.0.0",
+          "resolved": "https://registry.npmjs.org/wordwrap/-/wordwrap-1.0.0.tgz"
         }
       }
     },
@@ -591,7 +592,8 @@
     },
     "eslint-config-lob": {
       "version": "2.2.0",
-      "from": "eslint-config-lob@latest"
+      "from": "eslint-config-lob@>=2.0.0 <3.0.0",
+      "resolved": "https://registry.npmjs.org/eslint-config-lob/-/eslint-config-lob-2.2.0.tgz"
     },
     "espree": {
       "version": "2.2.5",
@@ -2060,6 +2062,11 @@
       "version": "0.0.6",
       "from": "lcov-parse@0.0.6",
       "resolved": "https://registry.npmjs.org/lcov-parse/-/lcov-parse-0.0.6.tgz"
+    },
+    "left-pad": {
+      "version": "1.1.1",
+      "from": "left-pad@latest",
+      "resolved": "https://registry.npmjs.org/left-pad/-/left-pad-1.1.1.tgz"
     },
     "levn": {
       "version": "0.2.5",

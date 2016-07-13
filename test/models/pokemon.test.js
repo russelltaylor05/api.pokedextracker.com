@@ -64,6 +64,22 @@ describe('pokemon model', () => {
 
     });
 
+    describe('serebii_url', () => {
+
+      it('gets the Serebii link of a Pokemon with a single digit National Id', () => {
+        expect(Pokemon.forge({ national_id: '6' }).get('serebii_url')).to.eql('http://www.serebii.net/pokedex-xy/006.shtml');
+      });
+
+      it('gets the Serebii link of a Pokemon with a two digit National Id', () => {
+        expect(Pokemon.forge({ national_id: '25' }).get('serebii_url')).to.eql('http://www.serebii.net/pokedex-xy/025.shtml');
+      });
+
+      it('gets the Serebii link of a Pokemon with a three digit National Id', () => {
+        expect(Pokemon.forge({ national_id: '254' }).get('serebii_url')).to.eql('http://www.serebii.net/pokedex-xy/254.shtml');
+      });
+
+    });
+
     describe('summary', () => {
 
       it('only includes the national_id, name, and icon_url of the pokemon', () => {
@@ -141,6 +157,7 @@ describe('pokemon model', () => {
           'regionless',
           'icon_url',
           'bulbapedia_url',
+          'serebii_url',
           'x_locations',
           'y_locations',
           'or_locations',
