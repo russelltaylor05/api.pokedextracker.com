@@ -16,7 +16,7 @@ describe('errors service plugin', () => {
     server.register([
       require('inject-then'),
       require('../../../src/plugins/services/errors')
-    ], () => {})
+    ], () => {});
 
     server.route([{
       method: 'GET',

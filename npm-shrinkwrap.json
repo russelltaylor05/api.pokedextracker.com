@@ -590,9 +590,8 @@
       "resolved": "https://registry.npmjs.org/eslint/-/eslint-1.10.3.tgz"
     },
     "eslint-config-lob": {
-      "version": "2.0.1",
-      "from": "eslint-config-lob@>=2.0.0 <3.0.0",
-      "resolved": "https://registry.npmjs.org/eslint-config-lob/-/eslint-config-lob-2.0.1.tgz"
+      "version": "2.2.0",
+      "from": "eslint-config-lob@latest"
     },
     "espree": {
       "version": "2.2.5",

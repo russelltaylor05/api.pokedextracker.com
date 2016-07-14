@@ -34,7 +34,7 @@ server.register([
   if (err) {
     throw err;
   }
-})
+});
 
 /* istanbul ignore next */
 process.on('SIGTERM', () => {

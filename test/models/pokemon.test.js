@@ -176,8 +176,8 @@ describe('pokemon model', () => {
       .then((json) => json.evolution_family.pokemon)
       .map((poke) => poke.map((p) => p.national_id))
       .then((poke) => {
-        expect(poke[0]).to.include(firstPokemon.national_id)
-        expect(poke[1]).to.include(secondPokemon.national_id)
+        expect(poke[0]).to.include(firstPokemon.national_id);
+        expect(poke[1]).to.include(secondPokemon.national_id);
       });
     });
 
