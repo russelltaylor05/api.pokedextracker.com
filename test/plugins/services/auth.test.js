@@ -15,7 +15,7 @@ describe('auth service plugin', () => {
     server.register([
       require('inject-then'),
       require('../../../src/plugins/services/auth')
-    ], () => {})
+    ], () => {});
 
     server.route([{
       method: 'GET',

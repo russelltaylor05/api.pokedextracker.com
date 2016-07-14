@@ -3,8 +3,5 @@
   "globals": {
     "expect": false,
     "Factory": false
-  },
-  "rules": {
-    "arrow-body-style": 0
   }
 }
