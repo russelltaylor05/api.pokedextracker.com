@@ -1,5 +1,7 @@
 'use strict';
 
+const Leftpad = require('left-pad');
+
 const Bookshelf = require('../libraries/bookshelf');
 const Evolution = require('./evolution');
 
@@ -35,6 +37,9 @@ module.exports = Bookshelf.model('Pokemon', Bookshelf.Model.extend({
         regionless: this.get('regionless') || undefined,
         icon_url: this.get('icon_url')
       };
+    },
+    serebii_url () {
+      return `http://www.serebii.net/pokedex-xy/${Leftpad(this.get('national_id'), 3, 0)}.shtml`;
     },
     summary () {
       return {
@@ -110,6 +115,7 @@ module.exports = Bookshelf.model('Pokemon', Bookshelf.Model.extend({
         regionless: this.get('regionless') || undefined,
         icon_url: this.get('icon_url'),
         bulbapedia_url: this.get('bulbapedia_url'),
+        serebii_url: this.get('serebii_url'),
         x_locations: this.get('x_locations'),
         y_locations: this.get('y_locations'),
         or_locations: this.get('or_locations'),
