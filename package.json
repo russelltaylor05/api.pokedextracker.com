@@ -20,17 +20,17 @@
   },
   "dependencies": {
     "bcrypt": "^0.8.5",
-    "bookshelf": "^0.9.2",
+    "bookshelf": "^0.10.0",
     "create-boom-error": "^0.1.0",
     "hapi": "^13.0.0",
     "hapi-auth-jwt": "^4.0.0",
     "hapi-bookshelf-serializer": "^2.1.0",
     "joi": "^8.0.4",
     "jsonwebtoken": "^5.7.0",
-    "knex": "^0.10.0",
+    "knex": "^0.11.7",
     "left-pad": "^1.1.1",
     "newrelic": "^1.26.0",
-    "pg": "^4.5.1"
+    "pg": "^6.0.2"
   },
   "devDependencies": {
     "chai": "^3.5.0",
