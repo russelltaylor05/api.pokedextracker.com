@@ -1,3 +1,18 @@
+### 1.9.0 (2016-7-14)
+
+##### Chores
+
+* **deps:**
+  * update jsonwebtoken from 5.7.0 to 7.1.3 ([83dd7556](https://github.com/robinjoseph08/api.pokedextracker.com/commit/83dd7556258ac4cfee34d5474b1c945739d1ee4c))
+  * update joi from 8.0.4 to 9.0.0 ([412296bf](https://github.com/robinjoseph08/api.pokedextracker.com/commit/412296bf4fb2ff3208030056b75f9886a49c2f9d))
+  * update pg, knex, bookshelf ([ad149ee4](https://github.com/robinjoseph08/api.pokedextracker.com/commit/ad149ee46f42d71f9befcd0ce53fcc58cd471f10))
+* **lint:** update eslint-config-lob from 2.0.0 to 2.2.0 ([1bae84f3](https://github.com/robinjoseph08/api.pokedextracker.com/commit/1bae84f3767071cd9461cc8879ff47028d6a70d3))
+* **npm:** shrinkwrap dev dependencies ([2883592d](https://github.com/robinjoseph08/api.pokedextracker.com/commit/2883592dbc4a96f7174d21e7b8600f42e95898dc))
+
+##### New Features
+
+* **dex:** added serebii link ([606f26b0](https://github.com/robinjoseph08/api.pokedextracker.com/commit/606f26b0babaa707a46414f30aecd236338bddb8))
+
 #### 1.8.1 (2016-5-18)
 
 ##### Bug Fixes
