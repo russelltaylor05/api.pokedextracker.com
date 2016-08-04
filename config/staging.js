@@ -10,5 +10,6 @@ module.exports = {
   DRAIN_TIMEOUT: 60000,
   JWT_SECRET: process.env.JWT_SECRET,
   PORT: 8647,
-  SALT_ROUNDS: 10
+  SALT_ROUNDS: 10,
+  SLACK_URL: ''
 };
