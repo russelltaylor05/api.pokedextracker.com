@@ -1,6 +1,6 @@
 {
   "name": "pokedex-tracker-api",
-  "version": "1.9.0",
+  "version": "1.10.0",
   "description": "API for pokedextracker.com",
   "main": "src/index.js",
   "scripts": {
