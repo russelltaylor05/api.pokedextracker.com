@@ -22,6 +22,21 @@ const server = new Hapi.Server({
 server.connection({ port: Config.PORT });
 
 server.register([
+  {
+    register: require('good'),
+    options: {
+      reporters: {
+        slack: [{
+          module: 'good-squeeze',
+          name: 'Squeeze',
+          args: [{ error: '*' }]
+        }, {
+          module: 'good-slack',
+          args: [{ url: Config.SLACK_URL, format: '' }]
+        }]
+      }
+    }
+  },
   require('hapi-bookshelf-serializer'),
   require('./plugins/services/errors'),
   require('./plugins/services/auth'),

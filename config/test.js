@@ -13,5 +13,6 @@ module.exports = {
   PASSWORD_HASH: '$2a$10$GzqLUEOc3Uk6cB2wX.ajj.jUPr9Nx.JPKZ0CukgG29xaWX1upFSna',
   PASSWORD_VALUE: 'password',
   PORT: 8647,
-  SALT_ROUNDS: 10
+  SALT_ROUNDS: 10,
+  SLACK_URL: ''
 };
