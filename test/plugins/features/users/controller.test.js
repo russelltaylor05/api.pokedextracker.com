@@ -18,14 +18,14 @@ describe('user controller', () => {
       return Knex('users').insert([firstUser, secondUser]);
     });
 
-    it('returns a collection of users', () => {
+    it('returns a collection of users ordered by id descending', () => {
       return Controller.list()
       .get('models')
       .map((user) => user.id)
       .then((users) => {
         expect(users).to.have.length(2);
-        expect(users).to.contain(firstUser.id);
-        expect(users).to.contain(secondUser.id);
+        expect(users[0]).to.eql(secondUser.id);
+        expect(users[1]).to.eql(firstUser.id);
       });
     });
 
