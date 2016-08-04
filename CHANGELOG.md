@@ -1,3 +1,10 @@
+### 1.10.0 (2016-8-3)
+
+##### New Features
+
+* **reporting:** add good-slack for error notifications ([5ab7cf14](https://github.com/robinjoseph08/api.pokedextracker.com/commit/5ab7cf1477fc11838e5159cd28d710f49d16b9f7))
+* **users:** order list by id descending ([cc9f6624](https://github.com/robinjoseph08/api.pokedextracker.com/commit/cc9f6624e4aecdfaf9fde2697c8f52ea8e489bc5))
+
 ### 1.9.0 (2016-7-14)
 
 ##### Chores
