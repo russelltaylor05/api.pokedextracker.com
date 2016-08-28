@@ -1,12 +1,9 @@
 'use strict';
 
-const Bluebird = require('bluebird');
-const Hapi     = require('hapi');
-const Util     = require('util');
+const Hapi = require('hapi');
+const Util = require('util');
 
 const Config = require('../config');
-
-Bluebird.longStackTraces();
 
 const server = new Hapi.Server({
   connections: {
