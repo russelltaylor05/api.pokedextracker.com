@@ -19,7 +19,7 @@ describe('user integration', () => {
     });
 
     it('returns a collection of users', () => {
-      return Server.injectThen({
+      return Server.inject({
         method: 'GET',
         url: '/users'
       })
@@ -37,7 +37,7 @@ describe('user integration', () => {
     });
 
     it('returns an individual user from its username', () => {
-      return Server.injectThen({
+      return Server.inject({
         method: 'GET',
         url: `/users/${firstUser.username}`
       })
@@ -51,7 +51,7 @@ describe('user integration', () => {
   describe('create', () => {
 
     it('saves a user', () => {
-      return Server.injectThen({
+      return Server.inject({
         method: 'POST',
         url: '/users',
         payload: {
@@ -69,7 +69,7 @@ describe('user integration', () => {
       const ip = '123.123.123.123';
       const username = 'test';
 
-      return Server.injectThen({
+      return Server.inject({
         method: 'POST',
         url: '/users',
         headers: { 'X-Forwarded-For': ip },
@@ -88,7 +88,7 @@ describe('user integration', () => {
       const ips = ['123.123.123.123', '124.124.124.124'];
       const username = 'test';
 
-      return Server.injectThen({
+      return Server.inject({
         method: 'POST',
         url: '/users',
         headers: { 'X-Forwarded-For': ips.join(',') },
@@ -114,7 +114,7 @@ describe('user integration', () => {
     });
 
     it('updates a user', () => {
-      return Server.injectThen({
+      return Server.inject({
         method: 'POST',
         url: `/users/${firstUser.username}`,
         headers: { authorization: auth },

@@ -15,7 +15,7 @@ describe('pokemon integration', () => {
     });
 
     it('returns a collection of pokemon', () => {
-      return Server.injectThen({
+      return Server.inject({
         method: 'GET',
         url: '/pokemon'
       })
@@ -33,7 +33,7 @@ describe('pokemon integration', () => {
     });
 
     it('returns an individual pokemon from its national ID', () => {
-      return Server.injectThen({
+      return Server.inject({
         method: 'GET',
         url: `/pokemon/${firstPokemon.national_id}`
       })
@@ -43,7 +43,7 @@ describe('pokemon integration', () => {
     });
 
     it('only allows numeric IDs', () => {
-      return Server.injectThen({
+      return Server.inject({
         method: 'GET',
         url: '/pokemon/string'
       })

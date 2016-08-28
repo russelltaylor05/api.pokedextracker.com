@@ -17,7 +17,7 @@ exports.register = (server, options, next) => {
     path: '/pokemon/{id}',
     config: {
       handler: (request, reply) => reply(Controller.retrieve(request.params.id)),
-      validate: { params: { id: Joi.number().integer() } }
+      validate: { params: Joi.object({ id: Joi.number().integer() }) }
     }
   }]);
 

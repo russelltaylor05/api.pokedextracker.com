@@ -12,29 +12,27 @@ describe('auth service plugin', () => {
     server = new Hapi.Server();
     server.connection({ port: 80 });
 
-    server.register([
-      require('inject-then'),
-      require('../../../src/plugins/services/auth')
-    ], () => {});
-
-    server.route([{
-      method: 'GET',
-      path: '/public',
-      config: {
-        handler: (request, reply) => reply({})
-      }
-    }, {
-      method: 'GET',
-      path: '/private',
-      config: {
-        auth: 'token',
-        handler: (request, reply) => reply(request.auth.credentials)
-      }
-    }]);
+    return server.register([require('../../../src/plugins/services/auth')])
+    .then(() => {
+      server.route([{
+        method: 'GET',
+        path: '/public',
+        config: {
+          handler: (request, reply) => reply({})
+        }
+      }, {
+        method: 'GET',
+        path: '/private',
+        config: {
+          auth: 'token',
+          handler: (request, reply) => reply(request.auth.credentials)
+        }
+      }]);
+    });
   });
 
   it('does not do anything for public routes', () => {
-    return server.injectThen({
+    return server.inject({
       method: 'GET',
       url: '/public'
     })
@@ -44,7 +42,7 @@ describe('auth service plugin', () => {
   });
 
   it('returns a 401 if no authentication is provided for private routes', () => {
-    return server.injectThen({
+    return server.inject({
       method: 'GET',
       url: '/private'
     })
@@ -54,7 +52,7 @@ describe('auth service plugin', () => {
   });
 
   it('returns a 401 if invalid authentication is provided for private routes', () => {
-    return server.injectThen({
+    return server.inject({
       method: 'GET',
       url: '/private',
       headers: {
@@ -67,7 +65,7 @@ describe('auth service plugin', () => {
   });
 
   it('goes through if valid authentication is provided for private routes', () => {
-    return server.injectThen({
+    return server.inject({
       method: 'GET',
       url: '/private',
       headers: {

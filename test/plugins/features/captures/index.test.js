@@ -31,7 +31,7 @@ describe('capture integration', () => {
   describe('list', () => {
 
     it('returns a collection of captures', () => {
-      return Server.injectThen({
+      return Server.inject({
         method: 'GET',
         url: `/captures?user=${user.id}`
       })
@@ -42,7 +42,7 @@ describe('capture integration', () => {
     });
 
     it('requires a user query param', () => {
-      return Server.injectThen({
+      return Server.inject({
         method: 'GET',
         url: '/captures'
       })
@@ -57,7 +57,7 @@ describe('capture integration', () => {
   describe('create', () => {
 
     it('saves a capture', () => {
-      return Server.injectThen({
+      return Server.inject({
         method: 'POST',
         url: '/captures',
         headers: { authorization: auth },
@@ -70,7 +70,7 @@ describe('capture integration', () => {
     });
 
     it('requires authentication', () => {
-      return Server.injectThen({
+      return Server.inject({
         method: 'POST',
         url: '/captures',
         payload: { pokemon: secondPokemon.national_id }
@@ -85,7 +85,7 @@ describe('capture integration', () => {
   describe('delete', () => {
 
     it('deletes a capture', () => {
-      return Server.injectThen({
+      return Server.inject({
         method: 'DELETE',
         url: '/captures',
         headers: { authorization: auth },
@@ -98,7 +98,7 @@ describe('capture integration', () => {
     });
 
     it('requires authentication', () => {
-      return Server.injectThen({
+      return Server.inject({
         method: 'DELETE',
         url: '/captures',
         payload: { pokemon: firstPokemon.national_id }

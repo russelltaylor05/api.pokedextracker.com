@@ -16,7 +16,7 @@ describe('session integration', () => {
     });
 
     it('creates a token', () => {
-      return Server.injectThen({
+      return Server.inject({
         method: 'POST',
         url: '/sessions',
         payload: {
@@ -32,7 +32,7 @@ describe('session integration', () => {
     it('saves an X-Forwarded-For IP address if present', () => {
       const ip = '123.123.123.123';
 
-      return Server.injectThen({
+      return Server.inject({
         method: 'POST',
         url: '/sessions',
         headers: { 'X-Forwarded-For': ip },
@@ -50,7 +50,7 @@ describe('session integration', () => {
     it('saves the first X-Forwarded-For IP address if multiple are present', () => {
       const ips = ['123.123.123.123', '124.124.124.124'];
 
-      return Server.injectThen({
+      return Server.inject({
         method: 'POST',
         url: '/sessions',
         headers: { 'X-Forwarded-For': ips.join(',') },
