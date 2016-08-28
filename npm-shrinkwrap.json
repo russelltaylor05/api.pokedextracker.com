@@ -1,5 +1,5 @@
 {
-  "name": "pokedex-tracker-api",
+  "name": "api.pokedextracker.com",
   "version": "1.10.0",
   "dependencies": {
     "abbrev": {
