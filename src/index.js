@@ -9,4 +9,5 @@ const Util = require('util');
 const Config = require('../config');
 const API    = require('./server');
 
-API.start(() => Util.log(`Server started on port: ${Config.PORT}`));
+API.start()
+.then(() => Util.log(`Server started on port: ${Config.PORT}`));

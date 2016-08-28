@@ -13,35 +13,33 @@ describe('errors service plugin', () => {
     server = new Hapi.Server();
     server.connection({ port: 80 });
 
-    server.register([
-      require('inject-then'),
-      require('../../../src/plugins/services/errors')
-    ], () => {});
-
-    server.route([{
-      method: 'GET',
-      path: '/normal',
-      config: {
-        handler: (request, reply) => reply({})
-      }
-    }, {
-      method: 'POST',
-      path: '/joi',
-      config: {
-        handler: (request, reply) => reply({}),
-        validate: { payload: { test: Joi.number() } }
-      }
-    }, {
-      method: 'POST',
-      path: '/error',
-      config: {
-        handler: (request, reply) => reply(new Error())
-      }
-    }]);
+    return server.register([require('../../../src/plugins/services/errors')])
+    .then(() => {
+      server.route([{
+        method: 'GET',
+        path: '/normal',
+        config: {
+          handler: (request, reply) => reply({})
+        }
+      }, {
+        method: 'POST',
+        path: '/joi',
+        config: {
+          handler: (request, reply) => reply({}),
+          validate: { payload: { test: Joi.number() } }
+        }
+      }, {
+        method: 'POST',
+        path: '/error',
+        config: {
+          handler: (request, reply) => reply(new Error())
+        }
+      }]);
+    });
   });
 
   it('does not do anything for non-errors', () => {
-    return server.injectThen({
+    return server.inject({
       method: 'GET',
       url: '/normal'
     })
@@ -52,7 +50,7 @@ describe('errors service plugin', () => {
   });
 
   it('converts Joi validation errors into 422s', () => {
-    return server.injectThen({
+    return server.inject({
       method: 'POST',
       url: '/joi',
       payload: { test: 'not a number' }
@@ -63,7 +61,7 @@ describe('errors service plugin', () => {
   });
 
   it('removes quotes form Joi validation errors', () => {
-    return server.injectThen({
+    return server.inject({
       method: 'POST',
       url: '/joi',
       payload: { test: 'not a number' }
@@ -76,14 +74,12 @@ describe('errors service plugin', () => {
   it('does not alter the 500 message', () => {
     Sinon.stub(Util, 'log');
 
-    return server.injectThen({
+    return server.inject({
       method: 'POST',
       url: '/error'
     })
     .then((res) => {
       expect(res.result.error.message).to.eql('An internal server error occurred');
-    })
-    .finally(() => {
       Util.log.restore();
     });
   });
