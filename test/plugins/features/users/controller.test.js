@@ -122,9 +122,18 @@ describe('user controller', () => {
       const friendCode = '4321-4321-4321';
 
       return Controller.update(firstUser.username, { friend_code: friendCode }, { id: firstUser.id })
-      .then((user) => new User({ id: user.id }).fetch())
+      .then(() => new User({ id: firstUser.id }).fetch())
       .then((user) => {
         expect(user.get('friend_code')).to.eql(friendCode);
+      });
+    });
+
+    it('returns a new session', () => {
+      const friendCode = '4321-4321-4321';
+
+      return Controller.update(firstUser.username, { friend_code: friendCode }, { id: firstUser.id })
+      .then((session) => {
+        expect(session.token).to.be.a('string');
       });
     });
 
