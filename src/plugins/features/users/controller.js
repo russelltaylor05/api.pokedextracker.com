@@ -45,7 +45,14 @@ exports.create = function (payload, request) {
 };
 
 exports.update = function (username, payload, auth) {
-  return new User({ id: auth.id }).where('username', username).save(payload)
+  return Bluebird.resolve()
+  .then(() => {
+    if (payload.password) {
+      return Bcrypt.hashAsync(payload.password, Config.SALT_ROUNDS)
+      .then((hash) => payload.password = hash);
+    }
+  })
+  .then(() => new User({ id: auth.id }).where('username', username).save(payload))
   .then((user) => user.refresh())
   .then((user) => JWT.sign(user))
   .catch(User.NoRowsUpdatedError, () => {

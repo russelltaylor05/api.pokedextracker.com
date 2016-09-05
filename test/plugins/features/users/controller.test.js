@@ -59,9 +59,17 @@ describe('user controller', () => {
     const request = { headers: {}, info: {} };
 
     it('saves a user with a hashed password', () => {
-      return Controller.create({ username: 'test', password: 'test' }, request)
+      const username = 'test';
+      const password = 'test';
+
+      return Controller.create({ username, password }, request)
       .then((session) => {
         expect(session.token).to.be.a('string');
+      })
+      .then(() => new User().where('username', username).fetch())
+      .then((user) => {
+        expect(user.get('password')).to.not.eql(password);
+        expect(user.get('password')).to.have.length(60);
       });
     });
 
@@ -125,6 +133,17 @@ describe('user controller', () => {
       .then(() => new User({ id: firstUser.id }).fetch())
       .then((user) => {
         expect(user.get('friend_code')).to.eql(friendCode);
+      });
+    });
+
+    it('rehashes password if it was passed in', () => {
+      const password = 'test';
+
+      return Controller.update(firstUser.username, { password }, { id: firstUser.id })
+      .then(() => new User({ id: firstUser.id }).fetch())
+      .then((user) => {
+        expect(user.get('password')).to.not.eql(password);
+        expect(user.get('password')).to.have.length(60);
       });
     });
 
