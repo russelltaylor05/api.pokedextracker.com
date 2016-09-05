@@ -1,3 +1,20 @@
+### 1.11.0 (2016-9-5)
+
+##### Chores
+
+* **bluebird:** only enable long stack traces for tests ([4ea4318d](https://github.com/robinjoseph08/api.pokedextracker.com/commit/4ea4318dd5ebacb95715abeed04e74ac751623a0))
+* **name:** rename from pokedex-tracker-api to api.pokedextracker.com ([4a11a969](https://github.com/robinjoseph08/api.pokedextracker.com/commit/4a11a969ef80a495a70a0826b8113cb198607005))
+* **deps:** update to hapi 15.0.1 ([cf7ee04d](https://github.com/robinjoseph08/api.pokedextracker.com/commit/cf7ee04dd9ebd4ca03903dbf0b7139da90ba8cdf))
+
+##### New Features
+
+* **user:** allow passwords to be updated ([96b6ae5a](https://github.com/robinjoseph08/api.pokedextracker.com/commit/96b6ae5a396506fdc5060bc7529e2ba02a821f12))
+
+##### Bug Fixes
+
+* **users:** update endpoint returns a new session ([7c757a1f](https://github.com/robinjoseph08/api.pokedextracker.com/commit/7c757a1fc2a47c7190f1a530c15f50541e3e9821))
+* **shrinkwrap:** remove references to nodejitsu ([92eab004](https://github.com/robinjoseph08/api.pokedextracker.com/commit/92eab0043af624265759c69cc59eff5026f45350))
+
 ### 1.10.0 (2016-8-3)
 
 ##### New Features
