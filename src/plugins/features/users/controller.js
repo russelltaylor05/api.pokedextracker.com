@@ -37,6 +37,7 @@ exports.create = function (payload, request) {
 
     return new User(payload).save();
   })
+  .then((user) => user.refresh())
   .then((user) => JWT.sign(user))
   .catch(Errors.DuplicateKey, () => {
     throw new Errors.ExistingUsername();
@@ -45,6 +46,8 @@ exports.create = function (payload, request) {
 
 exports.update = function (username, payload, auth) {
   return new User({ id: auth.id }).where('username', username).save(payload)
+  .then((user) => user.refresh())
+  .then((user) => JWT.sign(user))
   .catch(User.NoRowsUpdatedError, () => {
     throw new Errors.ForbiddenAction('updating this user');
   });
