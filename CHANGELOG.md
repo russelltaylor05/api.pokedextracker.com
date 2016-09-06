@@ -1,3 +1,9 @@
+#### 1.11.1 (2016-9-5)
+
+##### Bug Fixes
+
+* **user:** allow update to clear friend code ([7e1e8b7e](https://github.com/robinjoseph08/api.pokedextracker.com/commit/7e1e8b7e60b331287bdfddba387d0ec2c003e241))
+
 ### 1.11.0 (2016-9-5)
 
 ##### Chores
