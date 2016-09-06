@@ -7,8 +7,9 @@ const Errors     = require('../../../../src/libraries/errors');
 const Knex       = require('../../../../src/libraries/knex');
 const User       = require('../../../../src/models/user');
 
-const firstUser  = Factory.build('user');
-const secondUser = Factory.build('user');
+const firstUser      = Factory.build('user');
+const secondUser     = Factory.build('user');
+const friendCodeUser = Factory.build('user', { friend_code: '0000-0000-0000' });
 
 describe('user controller', () => {
 
@@ -123,7 +124,15 @@ describe('user controller', () => {
   describe('update', () => {
 
     beforeEach(() => {
-      return Knex('users').insert([firstUser, secondUser]);
+      return Knex('users').insert([firstUser, secondUser, friendCodeUser]);
+    });
+
+    it('does not clear the password if it is not passed in', () => {
+      return Controller.update(firstUser.username, { password: undefined }, { id: firstUser.id })
+      .then(() => new User({ id: firstUser.id }).fetch())
+      .then((user) => {
+        expect(user.get('password')).to.exist;
+      });
     });
 
     it('updates a user', () => {
@@ -144,6 +153,14 @@ describe('user controller', () => {
       .then((user) => {
         expect(user.get('password')).to.not.eql(password);
         expect(user.get('password')).to.have.length(60);
+      });
+    });
+
+    it('clears out the friend code if null is passed in', () => {
+      return Controller.update(friendCodeUser.username, { friend_code: null }, { id: friendCodeUser.id })
+      .then(() => new User({ id: friendCodeUser.id }).fetch())
+      .then((user) => {
+        expect(user.get('friend_code')).to.not.exist;
       });
     });
 

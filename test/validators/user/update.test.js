@@ -33,11 +33,35 @@ describe('user update validator', () => {
 
   describe('friend_code', () => {
 
+    it('defaults to null', () => {
+      const data = {};
+      const result = Joi.validate(data, UserUpdateValidator);
+
+      expect(result.error).to.not.exist;
+      expect(result.value.friend_code).to.be.null;
+    });
+
+    it('allows null', () => {
+      const data = { friend_code: null };
+      const result = Joi.validate(data, UserUpdateValidator);
+
+      expect(result.error).to.not.exist;
+      expect(result.value.friend_code).to.be.null;
+    });
+
+    it('converts the empty string to null', () => {
+      const data = { friend_code: '' };
+      const result = Joi.validate(data, UserUpdateValidator);
+
+      expect(result.error).to.not.exist;
+      expect(result.value.friend_code).to.be.null;
+    });
+
     it('allows codes in the format of 1234-1234-1234', () => {
       const data = { friend_code: '1234-1234-1234' };
       const result = Joi.validate(data, UserUpdateValidator);
 
-      expect(result.error).to.be.null;
+      expect(result.error).to.not.exist;
     });
 
     it('disallows codes not in the format of 1234-1234-1234', () => {

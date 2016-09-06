@@ -59,6 +59,22 @@ describe('user create validator', () => {
 
   describe('friend_code', () => {
 
+    it('allows null', () => {
+      const data = { username: 'testing', password: 'testtest', friend_code: null };
+      const result = Joi.validate(data, UserCreateValidator);
+
+      expect(result.error).to.not.exist;
+      expect(result.value.friend_code).to.not.exist;
+    });
+
+    it('converts the empty string to null', () => {
+      const data = { username: 'testing', password: 'testtest', friend_code: '' };
+      const result = Joi.validate(data, UserCreateValidator);
+
+      expect(result.error).to.not.exist;
+      expect(result.value.friend_code).to.not.exist;
+    });
+
     it('allows codes in the format of 1234-1234-1234', () => {
       const data = { username: 'testing', password: 'testtest', friend_code: '1234-1234-1234' };
       const result = Joi.validate(data, UserCreateValidator);
