@@ -47,6 +47,9 @@
     "rosie": "^1.3.0",
     "sinon": "^1.17.3"
   },
+  "optionalDependencies": {
+    "fsevents": "^1.0.8"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/robinjoseph08/api.pokedextracker.com.git"
